@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "tb_module")
-public class Module {
+@Table(name = "tb_profile")
+public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "isn_module")
+    @Column(name = "isn_profile")
     private Integer id;
 
     @Column(name = "dsc_name", length = 50)
@@ -29,7 +29,15 @@ public class Module {
     @NotEmpty(message = "{field.description.required}")
     private String description;
 
+    @Column(name = "dsc_role", length = 50)
+    @NotEmpty(message = "{field.role.required}")
+    private String role;
+
     @Column(name = "flg_status")
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "isn_module", referencedColumnName = "isn_module")
+    private Module module;
 
 }

@@ -1,7 +1,7 @@
 package br.com.systemit.auth.rest.controller;
 
 import br.com.systemit.auth.domain.entity.Module;
-import br.com.systemit.auth.domain.reposit.ModuleRepository;
+import br.com.systemit.auth.domain.repository.ModuleRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
