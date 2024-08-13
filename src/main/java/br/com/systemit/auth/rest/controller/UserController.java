@@ -3,6 +3,7 @@ package br.com.systemit.auth.rest.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> listAll() {
+    public List<User> listAll(Authentication authentication) {
+        System.out.println("user logged: " + authentication.getName());
         return userRepository.findAll();
     }
 
