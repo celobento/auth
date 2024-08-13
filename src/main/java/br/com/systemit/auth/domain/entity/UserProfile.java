@@ -40,11 +40,11 @@ public class UserProfile {
     private Profile profile;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "dth_added_in")
+    @Column(name = "dth_added_in", nullable = false)
     private LocalDateTime addedIn;
 
     @Column(name = "dsc_responsible_add", length = 250)
-    @NotEmpty(message = "{field.name.required}")
+    @NotEmpty
     private String responsibleAdd;
 
     @Column(name = "dsc_responsible_removedadd", length = 250)

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtService {
 
-    @Value("${security.jwt.expiracao}")
+    @Value("${security.jwt.expiration}")
     private String expiracao;
 
-    @Value("${security.jwt.chave-assinatura}")
+    @Value("${security.jwt.key-signature}")
     private String chaveAssinatura;
 
     public String gerarToken( User usuario ){
@@ -29,10 +30,15 @@ public class JwtService {
         Instant instant = dataHoraExpiracao.atZone(ZoneId.systemDefault()).toInstant();
         Date data = Date.from(instant);
 
+        //HashMap<String, Object> claims = new HashMap<>();
+        //claims.put("token_type", "bearer");
+        //claims.put("expiresIn", expString);
+
         return Jwts
                 .builder()
                 .setSubject(usuario.getLogin())
                 .setExpiration(data)
+                //.setClaims(claims)
                 .signWith( SignatureAlgorithm.HS512, chaveAssinatura )
                 .compact();
     }

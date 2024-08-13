@@ -7,9 +7,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.systemit.auth.security.JwtAuthFilter;
@@ -36,18 +37,21 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) -> 
                         authorize
                                 .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/api/users/**").hasAnyRole("user", "admin", "auth-admin")
                                 .requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                                 .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.disable())
                 .headers((headers) -> headers.frameOptions((frame) -> frame.sameOrigin()))
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                //.httpBasic(Customizer.withDefaults())
+                //.formLogin(Customizer.withDefaults())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
+    
     // @Bean
     // public GrantedAuthorityDefaults grantedAuthorityDefaults(){
     //     return new GrantedAuthorityDefaults("");
