@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping
     public List<User> listAll(Authentication authentication) {
-        System.out.println("user logged: " + authentication.getName());
+        System.out.println("user logged: " + authentication.getName() + " | roles: " + authentication.getAuthorities());
         return userRepository.findAll();
     }
 

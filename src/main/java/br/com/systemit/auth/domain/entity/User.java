@@ -30,8 +30,8 @@ public class User {
     @Column(name = "isn_user")
     private Integer id;
 
-    @Column(name = "dsc_name", length = 50)
-    @Length(min = 5, max = 50)
+    @Column(name = "dsc_name", length = 250)
+    @Length(min = 5, max = 250)
     private String name;
 
     @Column(name = "dsc_nickname", length = 50)

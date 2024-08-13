@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,7 +22,7 @@ public class SecurityConfig {
 
     @Autowired
     private UserServiceimpl usuarioService;
-    
+
     @Autowired
     private JwtService jwtService;
 
@@ -36,7 +37,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/api/users/**").hasAnyRole("user", "admin")
+                                .requestMatchers("/api/users/**").hasAnyRole("user", "admin", "auth-admin")
                                 .requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                                 .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.disable())
@@ -46,5 +47,10 @@ public class SecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
+
+    // @Bean
+    // public GrantedAuthorityDefaults grantedAuthorityDefaults(){
+    //     return new GrantedAuthorityDefaults("");
+    // }
 
 }
