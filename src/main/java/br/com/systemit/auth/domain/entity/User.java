@@ -1,6 +1,7 @@
 package br.com.systemit.auth.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -70,4 +72,7 @@ public class User {
     @Column(name = "dsc_email", length = 100)
     @Length(min = 7, max = 100)
     private String email;
+
+    @Transient
+    private List<String> roles;
 }

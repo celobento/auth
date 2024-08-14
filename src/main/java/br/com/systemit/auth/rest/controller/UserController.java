@@ -3,6 +3,7 @@ package br.com.systemit.auth.rest.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('auth-admin')")
     public List<User> listAll(Authentication authentication) {
         System.out.println("user logged: " + authentication.getName() + " | roles: " + authentication.getAuthorities());
         return userRepository.findAll();
