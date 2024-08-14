@@ -15,6 +15,16 @@
 						{
 							"name": "getAll",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJjZWxvYmVudG8iLCJleHAiOjE3MjM1OTg2NDJ9.1J-z8ZCosUPGwZcTmikZsWIVTRY10D8XrSqQjlok3i6QCljr9QqKipQQU0-DS0rtZeprKdgl1eqlO3Z2myt7eA",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -69,6 +79,16 @@
 						{
 							"name": "getAll",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJjZWxvYmVudG8iLCJleHAiOjE3MjM1OTg2NDJ9.1J-z8ZCosUPGwZcTmikZsWIVTRY10D8XrSqQjlok3i6QCljr9QqKipQQU0-DS0rtZeprKdgl1eqlO3Z2myt7eA",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -190,22 +210,19 @@
 					"name": "Authentication",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "12345678",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "marcelobento",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"marcelobento\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/auth/authentication/authenticate",
 							"protocol": "http",
@@ -217,6 +234,42 @@
 								"auth",
 								"authentication",
 								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Validate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"marcelobento\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/authentication/tokenValidate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"authentication",
+								"tokenValidate"
 							]
 						}
 					},
